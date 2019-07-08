@@ -17,7 +17,7 @@ function isTradetrustFileExtension(filename) {
   );
 }
 
-const certificatesInDirectory = async dir => {
+const documentsInDirectory = async dir => {
   const items = await readdir(dir);
   return filter(items, isTradetrustFileExtension);
 };
@@ -30,7 +30,7 @@ function writeCertToDisk(destinationDir, filename, certificate) {
 }
 
 module.exports = {
-  certificatesInDirectory,
+  documentsInDirectory,
   writeCertToDisk,
   readCert,
   readdir
