@@ -22,10 +22,10 @@ const documentsInDirectory = async dir => {
   return filter(items, isTradetrustFileExtension);
 };
 
-function writeCertToDisk(destinationDir, filename, certificate) {
+function writeCertToDisk(destinationDir, filename, document) {
   fs.writeFileSync(
     path.join(path.resolve(destinationDir), filename),
-    JSON.stringify(certificate, null, 2)
+    JSON.stringify(document, null, 2)
   );
 }
 
