@@ -11,6 +11,7 @@ const batchVerify = require("./src/batchVerify");
 const { batchIssue } = require("./src/batchIssue");
 const { logger, addConsole } = require("./lib/logger");
 const { version } = require("./package.json");
+const batchPdf = require("./src/batchPdf");
 
 // Pass argv with $1 and $2 sliced
 const parseArguments = argv =>
@@ -58,7 +59,7 @@ const parseArguments = argv =>
     })
     .command({
       command: "verify-all [options] <dir>",
-      description: "Verify all certiifcate in a directory",
+      description: "Verify all documents in a directory",
       builder: sub =>
         sub.positional("dir", {
           description: "Directory with all documents to verify",
@@ -80,6 +81,20 @@ const parseArguments = argv =>
             normalize: true
           })
     })
+    .command({
+      command: "batch-pdf [options] <source> <destination>",
+      description: "Attach a directory of pdfs into a certificate",
+      builder: sub =>
+        sub
+          .positional("source", {
+            description: "Directory containing the pdfs.",
+            normalize: true
+          })
+          .positional("destination", {
+            description: "Raw json file to append the attachment.",
+            normalize: true
+          })
+    })
     .parse(argv);
 
 const batch = async (raw, batched) => {
@@ -92,6 +107,29 @@ const batch = async (raw, batched) => {
     .catch(err => {
       logger.error(err);
     });
+};
+
+const batchPdfFiles = (source, destination) => {
+  mkdirp.sync(source);
+  try {
+    const srcStat = fs.lstatSync(source);
+    const destStat = fs.lstatSync(destination);
+    if (!srcStat.isDirectory())
+      throw new Error(
+        "Please provide valid pdf directory path to source argument."
+      );
+    return destStat.isFile()
+      ? batchPdf(source, destination)
+      : logger.error(
+          "Please input valid document file to destination argument."
+        );
+  } catch (e) {
+    logger.error(
+      "Please input valid document file to destination argument.",
+      e
+    );
+  }
+  return true;
 };
 
 const verifyAll = async dir => {
@@ -145,6 +183,8 @@ const main = async argv => {
   switch (args._[0]) {
     case "batch":
       return batch(args.rawDir, args.batchedDir);
+    case "batch-pdf":
+      return batchPdfFiles(args.source, args.destination);
     case "verify":
       return verify(args.file);
     case "verify-all":

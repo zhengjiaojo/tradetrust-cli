@@ -5,32 +5,32 @@ const { filter, some } = require("lodash");
 
 const readdir = util.promisify(fs.readdir);
 
-const opencertsFileExtensions = [/(.*)(\.)(opencert)$/, /(.*)(\.)(json)$/];
+const tradetrustFileExtensions = [/(.*)(\.)(tt)$/, /(.*)(\.)(json)$/];
 
 function readCert(directory, filename) {
   return JSON.parse(fs.readFileSync(path.join(directory, filename)));
 }
 
-function isOpenCertFileExtension(filename) {
+function isTradetrustFileExtension(filename) {
   return some(
-    opencertsFileExtensions.map(mask => mask.test(filename.toLowerCase()))
+    tradetrustFileExtensions.map(mask => mask.test(filename.toLowerCase()))
   );
 }
 
-const documentsInDirectory = async dir => {
+const certificatesInDirectory = async dir => {
   const items = await readdir(dir);
-  return filter(items, isOpenCertFileExtension);
+  return filter(items, isTradetrustFileExtension);
 };
 
-function writeCertToDisk(destinationDir, filename, document) {
+function writeCertToDisk(destinationDir, filename, certificate) {
   fs.writeFileSync(
     path.join(path.resolve(destinationDir), filename),
-    JSON.stringify(document, null, 2)
+    JSON.stringify(certificate, null, 2)
   );
 }
 
 module.exports = {
-  documentsInDirectory,
+  certificatesInDirectory,
   writeCertToDisk,
   readCert,
   readdir
