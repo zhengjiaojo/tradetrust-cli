@@ -25,6 +25,20 @@ tradetrust batch ./documents/raw-documents/ ./documents/processed-documents/
 2019-02-11T08:37:44.848Z info: Batch Document Root: 0xf51030c5751a646284c898cff0f9d833c64a50d6f307b61f2c96c3c838b13bfc
 ```
 
+## Batching PDFs
+
+This command process all PDFs in the input directory and convert all of them into the base64 string. It will then appned this base64 string as an attachment to the given document.
+
+```bash
+tradetrust batch-pdf <PathToRawPDFsDir> <PathToRawDocumentFile>
+```
+
+Example:
+
+```bash
+tradetrust batch-pdf ./documents/raw-pds/ ./documents/sample.json
+```
+
 ## Verifying All Signed Document in a Directory
 
 This command verifies that the document (and all it's evidence) is valid and is part of the document batch. However, it does not verify that the batch's merkle root is stored on the blockchain. User will need to verify that the document has indeed been issued by checking with the issuer's smart contract.
