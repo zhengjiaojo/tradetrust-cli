@@ -11,19 +11,27 @@ const isValidExt = filename =>
 const batchPdf = (pdfDir, certPath) => {
   const files = fs.readdirSync(pdfDir).filter(isValidExt);
   const document = readCert(certPath, "");
+  let keyIndex = 0;
+  if (!document.attachments) {
+    document.attachments = [];
+  }
+  const attachmentLength = document.attachments.length;
+
   files.forEach((pdf, index) => {
     const content = fs.readFileSync(path.join(pdfDir, pdf)).toString("base64");
-    if (!document.attachment) {
-      document.attachment = [];
+
+    if (attachmentLength > index) {
+      keyIndex = attachmentLength + index;
     }
-    document.attachment[index] = {
+
+    document.attachments[keyIndex] = {
       filename: "",
       type: "application/pdf",
       data: null
     };
-    document.attachment[index].filename = pdf;
-    document.attachment[index].data = content;
-    return content;
+
+    document.attachments[keyIndex].filename = pdf;
+    document.attachments[keyIndex].data = content;
   });
   fs.writeFileSync(certPath, JSON.stringify(document, null, 4));
 };

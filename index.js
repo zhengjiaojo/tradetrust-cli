@@ -22,6 +22,7 @@ const parseArguments = argv =>
     .epilogue(
       "The common subcommands you might be interested in are:\n" +
         "- batch\n" +
+        "- batch-pdf\n" +
         "- verify\n" +
         "- verify-all\n" +
         "- filter"
@@ -83,7 +84,7 @@ const parseArguments = argv =>
     })
     .command({
       command: "batch-pdf [options] <source> <destination>",
-      description: "Attach a directory of pdfs into a certificate",
+      description: "Attach a directory of pdfs into a document",
       builder: sub =>
         sub
           .positional("source", {

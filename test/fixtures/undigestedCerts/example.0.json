@@ -1,18 +1,18 @@
 {
-  "id": "SERIAL_NUMBER_123",
-  "$template": {
-    "name": "NULL",
-    "type": "EMBEDDED_RENDERER",
-    "url": "https://demo-co.openattestation.com"
-  },
-  "issuers": [
-    {
-      "name": "DEMO STORE",
-      "documentStore": "0x9178F546D3FF57D7A6352bD61B80cCCD46199C2d"
+    "id": "SERIAL_NUMBER_123",
+    "$template": {
+        "name": "NULL",
+        "type": "EMBEDDED_RENDERER",
+        "url": "https://demo-co.openattestation.com"
+    },
+    "issuers": [
+        {
+            "name": "DEMO STORE",
+            "documentStore": "0x9178F546D3FF57D7A6352bD61B80cCCD46199C2d"
+        }
+    ],
+    "somekey": "somevalue",
+    "recipient": {
+        "name": "Recipient Name"
     }
-  ],
-  "somekey": "somevalue",
-  "recipient": {
-    "name": "Recipient Name"
-  }
 }
