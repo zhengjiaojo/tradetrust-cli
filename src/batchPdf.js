@@ -1,17 +1,16 @@
-const { some } = require("lodash");
 const fs = require("fs");
 const path = require("path");
 const { readCert } = require("./diskUtils");
 
-const fileExt = [/(.*)(\.)(pdf)$/];
+const fileExtRegex = /(.*)(\.)(pdf)$/;
 
-const isValidExt = filename =>
-  some(fileExt.map(ext => ext.test(filename.toLowerCase())));
+const isValidExt = filename => fileExtRegex.test(filename.toLowerCase());
 
 const batchPdf = (pdfDir, certPath) => {
   const files = fs.readdirSync(pdfDir).filter(isValidExt);
+  console.log(files)
   const document = readCert(certPath, "");
-  let keyIndex = 0;
+
   if (!document.attachments) {
     document.attachments = [];
   }
@@ -20,6 +19,7 @@ const batchPdf = (pdfDir, certPath) => {
   files.forEach((pdf, index) => {
     const content = fs.readFileSync(path.join(pdfDir, pdf)).toString("base64");
 
+    let keyIndex = index;
     if (attachmentLength > index) {
       keyIndex = attachmentLength + index;
     }
