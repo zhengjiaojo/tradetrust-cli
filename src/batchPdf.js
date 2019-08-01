@@ -8,7 +8,6 @@ const isValidExt = filename => fileExtRegex.test(filename.toLowerCase());
 
 const batchPdf = (pdfDir, certPath) => {
   const files = fs.readdirSync(pdfDir).filter(isValidExt);
-  console.log(files)
   const document = readCert(certPath, "");
 
   if (!document.attachments) {
