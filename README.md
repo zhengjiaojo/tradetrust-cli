@@ -27,7 +27,7 @@ tradetrust batch ./documents/raw-documents/ ./documents/processed-documents/
 
 ## Batching PDFs
 
-This command process all PDFs in the input directory and convert all of them into the base64 string. It will then appned this base64 string as an attachment to the given document.
+This command process all PDFs in the input directory and convert all of them into the base64 string. It will then append this base64 string as an attachment to the given document.
 
 ```bash
 tradetrust batch-pdf <PathToRawPDFsDir> <PathToRawDocumentFile>

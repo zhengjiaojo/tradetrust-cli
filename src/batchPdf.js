@@ -32,7 +32,7 @@ const batchPdf = (pdfDir, certPath) => {
     document.attachments[keyIndex].filename = pdf;
     document.attachments[keyIndex].data = content;
   });
-  fs.writeFileSync(certPath, JSON.stringify(document, null, 4));
+  fs.writeFileSync(certPath, JSON.stringify(document, null, 2));
 };
 
 module.exports = batchPdf;
