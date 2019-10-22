@@ -8,7 +8,11 @@
   "issuers": [
     {
       "name": "DEMO STORE",
-      "documentStore": "0x9178F546D3FF57D7A6352bD61B80cCCD46199C2d"
+      "tokenRegistry": "0x48399Fb88bcD031C556F53e93F690EEC07963Af3",
+      "identityProof": {
+        "type": "DNS-TXT",
+        "location": "tradetrust.io"
+      }
     }
   ],
   "somekey": "somevalue",

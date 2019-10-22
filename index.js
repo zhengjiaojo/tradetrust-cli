@@ -5,7 +5,7 @@ const yargs = require("yargs");
 const {
   validateSchema,
   verifySignature,
-  obfuscateFields
+  obfuscateDocument
 } = require("@govtechsg/tradetrust-schema");
 const batchVerify = require("./src/batchVerify");
 const { batchIssue } = require("./src/batchIssue");
@@ -119,7 +119,7 @@ const verify = file => {
 
 const obfuscate = (input, output, fields) => {
   const documentJson = JSON.parse(fs.readFileSync(input, "utf8"));
-  const obfuscatedDocument = obfuscateFields(documentJson, fields);
+  const obfuscatedDocument = obfuscateDocument(documentJson, fields);
   const isValid =
     verifySignature(obfuscatedDocument) && validateSchema(obfuscatedDocument);
 
