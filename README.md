@@ -1,5 +1,7 @@
 # Document CLI tool
 
+This CLI tool turns .json documents into .tt verifiable documents. It applies the OpenAttestation algorithm to produce a hash of the json document and then creates a .tt file with the data and proof of integrity.
+
 ## Setup
 
 ```bash
